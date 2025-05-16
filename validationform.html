@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Input Types Form with Validation</title>
+  <style>
+    form {
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      background-color: #f2f2f2;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, button {
+      padding: 8px;
+      margin-top: 5px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<form onsubmit="return validateForm()" novalidate>
+  <h2>User Information Form</h2>
+
+  <label>Text:
+    <input type="text" name="fullname" required minlength="3" maxlength="50">
+  </label>
+
+  <label>Password:
+    <input type="password" name="password" required minlength="6">
+  </label>
+
+  <label>Email:
+    <input type="email" name="email" required>
+  </label>
+
+  <label>Telephone:
+    <input type="tel" name="phone" pattern="[0-9]{10}" required placeholder="10-digit number">
+  </label>
+
+  <label>URL:
+    <input type="url" name="website" placeholder="https://example.com">
+  </label>
+
+  <label>Date:
+    <input type="date" name="dob" required>
+  </label>
+
+  <label>Datetime-Local:
+    <input type="datetime-local" name="appointment">
+  </label>
+
+  <label>Month:
+    <input type="month" name="birthmonth">
+  </label>
+
+  <label>Week:
+    <input type="week" name="projectweek">
+  </label>
+
+  <label>Time:
+    <input type="time" name="meetingtime">
+  </label>
+
+  <label>Number (Age):
+    <input type="number" name="age" min="1" max="120" required>
+  </label>
+
+  <label>Range (Satisfaction):
+    <input type="range" name="satisfaction" min="1" max="10" value="5">
+  </label>
+
+  <!-- <label>Color:
+    <input type="color" name="favcolor">
+  </label> -->
+
+  <label>Checkbox (Agree to Terms):
+    <input type="checkbox" name="terms" required> I agree
+  </label>
+
+  <label>Radio Buttons (Gender):
+    <input type="radio" name="gender" value="male" required> Male
+    <input type="radio" name="gender" value="female"> Female
+  </label>
+
+  <label>File Upload (Image Only):
+    <input type="file" name="profilepic" accept="image/*">
+  </label>
+
+  <label>Search:
+    <input type="search" name="searchterm">
+  </label>
+
+  <label>Hidden (Tracking ID):
+    <input type="hidden" name="trackingId" value="ABC12345">
+  </label>
+
+  <label>Image (Submit using Image Button):
+    <input type="image" src="https://via.placeholder.com/100x30?text=Submit" alt="Submit Image" width="100" height="30">
+  </label>
+
+  <label>Reset Form:
+    <input type="reset" value="Reset Form">
+  </label>
+
+  <label>Submit Button:
+    <input type="submit" value="Submit Form">
+  </label>
+
+  <label>Button (Click Me):
+    <input type="button" value="Click Me" onclick="alert('Button clicked!')">
+  </label>
+</form>
+
+<script>
+function validateForm() {
+  const terms = document.querySelector('input[name="terms"]');
+  if (!terms.checked) {
+    alert("You must agree to the terms.");
+    return false;
+  }
+  return true;
+}
+</script>
+
+</body>
+</html>

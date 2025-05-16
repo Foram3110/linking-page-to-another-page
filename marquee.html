@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Example of a blinking text using CSS within a marquee</title>
+        <style>
+
+            .blink {
+                animation: blinker 1.5s linear infinite;
+                color Black;
+                font-family: Georgia, 'Times New Roman', Times, serif;
+            }
+
+            @keyframes blinker {
+                80% {
+                    opacity: 0;
+                }
+            }
+        </style>
+    </head>
+
+    <body style="background-color: yellow;">
+        <marquee class="blink">This is an example of blinking text using CSS within a marquee.</marquee>
+    </body>
+
+</html>
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The form element</h1>
+
+<form action="/action_page.php">
+  <label for="fname">First name:</label><p style="color:red"></p>
+  <input type="text" id="fname" name="fname"><br><br>
+  <label for="lname">Last name:</label><p style="color:red"></p>
+  <input type="text" id="lname" name="lname"><br><br>
+  <label for="password">password:</label><p style="color:red"></p>
+  <input type="Password" id"Password" name"Password"><br><br>
+    <input type="reset" value="reset"><span><input type="submit" value="submit"></span>
+</form>
+
+<p>Click the "Submit" button and the form-data will be sent to a page on the 
+server called "action_page.php".</p>
+
+</body>
+</html>

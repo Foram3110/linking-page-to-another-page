@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Validation with Custom Messages</title>
+  <style>
+    form {
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      background-color: #f2f2f2;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, button {
+      padding: 8px;
+      margin-top: 5px;
+      width: 100%;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+<form id="userForm" novalidate>
+  <h2>User Information Form</h2>
+
+  <label>Text:
+    <input type="text" name="fullname" required minlength="3" maxlength="50">
+    <div class="error" id="error-fullname"></div>
+  </label>
+
+  <label>Password:
+    <input type="password" name="password" required minlength="6">
+    <div class="error" id="error-password"></div>
+  </label>
+
+  <label>Email:
+    <input type="email" name="email" required>
+    <div class="error" id="error-email"></div>
+  </label>
+
+  <label>Telephone:
+    <input type="tel" name="phone" pattern="[0-9]{10}" required placeholder="10-digit number">
+    <div class="error" id="error-phone"></div>
+  </label>
+
+  <label>URL:
+    <input type="url" name="website">
+    <div class="error" id="error-website"></div>
+  </label>
+
+  <label>Date:
+    <input type="date" name="dob" required>
+    <div class="error" id="error-dob"></div>
+  </label>
+
+  <label>Datetime-Local:
+    <input type="datetime-local" name="appointment">
+    <div class="error" id="error-appointment"></div>
+  </label>
+
+  <label>Month:
+    <input type="month" name="birthmonth">
+    <div class="error" id="error-birthmonth"></div>
+  </label>
+
+  <label>Week:
+    <input type="week" name="projectweek">
+    <div class="error" id="error-projectweek"></div>
+  </label>
+
+  <label>Time:
+    <input type="time" name="meetingtime">
+    <div class="error" id="error-meetingtime"></div>
+  </label>
+
+  <label>Number (Age):
+    <input type="number" name="age" min="1" max="120" required>
+    <div class="error" id="error-age"></div>
+  </label>
+
+  <label>Range (Satisfaction):
+    <input type="range" name="satisfaction" min="1" max="10" value="5">
+    <div class="error" id="error-satisfaction"></div>
+  </label>
+
+  <label>Checkbox (Agree to Terms):
+    <input type="checkbox" name="terms" required> I agree
+    <div class="error" id="error-terms"></div>
+  </label>
+
+  <label>Radio Buttons (Gender):
+    <input type="radio" name="gender" value="male" required> Male
+    <input type="radio" name="gender" value="female"> Female
+    <div class="error" id="error-gender"></div>
+  </label>
+
+  <label>File Upload (Image Only):
+    <input type="file" name="profilepic" accept="image/*">
+    <div class="error" id="error-profilepic"></div>
+  </label>
+
+  <label>Search:
+    <input type="search" name="searchterm">
+    <div class="error" id="error-searchterm"></div>
+  </label>
+
+  <label>Hidden (Tracking ID):
+    <input type="hidden" name="trackingId" value="ABC12345">
+  </label>
+
+  <input type="submit" value="Submit Form">
+  <input type="reset" value="Reset Form">
+</form>
+
+<script>
+document.getElementById("userForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  let isValid = true;
+
+  // Clear all errors
+  document.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+  const form = e.target;
+
+  function setError(name, message) {
+    document.getElementById("error-" + name).textContent = message;
+    isValid = false;
+  }
+
+  const fullName = form.fullname;
+  if (!fullName.value.trim()) setError("fullname", "Full name is required.");
+  else if (fullName.value.length < 3) setError("fullname", "Full name must be at least 3 characters.");
+  else if (fullName.value.length > 50) setError("fullname", "Full name cannot exceed 50 characters.");
+
+  const password = form.password;
+  if (!password.value) setError("password", "Password is required.");
+  else if (password.value.length < 6) setError("password", "Password must be at least 6 characters.");
+
+  const email = form.email;
+  if (!email.validity.valid) setError("email", "Please enter a valid email address.");
+
+  const phone = form.phone;
+  if (!phone.value.match(/^\d{10}$/)) setError("phone", "Phone number must be exactly 10 digits.");
+
+  const url = form.website;
+  if (url.value && !url.validity.valid) setError("website", "Please enter a valid URL.");
+
+  const dob = form.dob;
+  if (!dob.value) setError("dob", "Date of birth is required.");
+
+  const age = form.age;
+  if (!age.value) setError("age", "Age is required.");
+  else if (age.value < 1 || age.value > 120) setError("age", "Age must be between 1 and 120.");
+
+  const terms = form.terms;
+  if (!terms.checked) setError("terms", "You must agree to the terms.");
+
+  const gender = form.gender;
+  if (!form.querySelector('input[name="gender"]:checked')) {
+    setError("gender", "Please select your gender.");
+  }
+
+  const profilepic = form.profilepic;
+  if (profilepic.files.length > 0) {
+    const file = profilepic.files[0];
+    if (!file.type.startsWith("image/")) setError("profilepic", "Only image files are allowed.");
+  }
+
+  if (isValid) {
+    alert("Form submitted successfully!");
+    form.submit();
+  }
+});
+</script>
+
+</body>
+</html>
